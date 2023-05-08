@@ -1,0 +1,59 @@
+<section
+    class="d-flex flex-column align-items-center justify-content-evenly my-5"
+>
+
+    <h2 class="mb-4">{{name}}'s Cart: </h2>
+    {{#if stickers}}
+        <table class="table w-50 border shadow table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each stickers}}
+                    <tr>
+                        <td class="align-middle">
+                            <img
+                                src={{this.image}}
+                                class="rounded"
+                                alt="Sticker Image"
+                                height="60"
+                            />
+                        </td>
+                        <th scope="row" class="align-middle">{{this.title}}</th>
+                        <th class="align-middle">$ {{this.price}}</th>
+                        <td class="align-middle">{{this.qty}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr class="border border-dark">
+                    <th></th>
+                    <th class="align-middle"><h4 class="m-0">Total</h4></th>
+                    <th><h4 class="m-0"> $ {{TOTALPRICE}}</h4></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="w-50 ms-auto d-flex flex-column">
+            <a href="/" class="btn btn-sm btn-outline-secondary flex-fill mb-2">
+                Keep Buying
+            </a>
+            <a
+                href="http://localhost:8080/api/carts/generateOrder"
+                class="flex-fill"
+            >
+                <button class="btn btn-primary w-100 py-2">GENERATE ORDER</button>
+            </a>
+        </div>
+    {{else}}
+        <h1 class="mb-4">No stickers yet...</h1>
+        <a href="/" class="btn btn-primary">Start Buying</a>
+    {{/if}}
+
+</section>
