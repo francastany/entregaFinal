@@ -1,4 +1,8 @@
-import { cartsService, stickersService } from "../DAO/index.js";
+import {
+    cartsService,
+    historiesService,
+    stickersService,
+} from "../DAO/index.js";
 
 const home = async (req, res) => {
     const stickers = await stickersService.getStickers();
@@ -10,8 +14,11 @@ const login = (req, res) => {
 const register = (req, res) => {
     res.render("register");
 };
-const profile = (req, res) => {
-    res.render("profile", { user: req.user });
+const profile = async (req, res) => {
+    const history = await historiesService.getHistoriesBy({
+        user: req.user.id,
+    });
+    res.render("profile", { user: req.user, events: history.events });
 };
 const creator = (req, res) => {
     res.render("creator");

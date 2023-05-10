@@ -7,4 +7,7 @@ export default class StickersDAO {
     createSticker = (sticker) => {
         return stickersModel.create(sticker);
     };
+    updateSticker = (id, sticker) => {
+        return stickersModel.findByIdAndUpdate(id, { $set: sticker });
+    };
 }

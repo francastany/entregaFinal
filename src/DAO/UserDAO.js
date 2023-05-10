@@ -9,4 +9,7 @@ export default class UserDAO {
     createUser = (user) => {
         return userModel.create(user);
     };
+    updateUser = (id, user) => {
+        return userModel.findByIdAndUpdate(id, { $set: user });
+    };
 }
