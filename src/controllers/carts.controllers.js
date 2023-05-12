@@ -4,7 +4,9 @@ import {
     ticketsService,
     usersService,
 } from "../DAO/index.js";
+import config from "../config/config.js";
 import { makeID } from "../utils.js";
+import { transporter } from "../services/mailer.js";
 import { DateTime } from "luxon";
 
 const instertToCart = async (req, res) => {
@@ -32,12 +34,11 @@ const generateOrder = async (req, res) => {
     const user = await usersService.getUserBy({ _id: req.user.id });
     const cart = await cartsService.getCartById(user.cart, { populate: true });
     const unpopulatedCart = await cartsService.getCartById(user.cart);
-    console.log(unpopulatedCart);
+
     const total = cart.stickers.reduce(
         (acum, sticker) => acum + sticker._id.price * sticker.qty,
         0
     );
-
     const ticket = {
         user: user._id,
         stickers: unpopulatedCart.stickers,
@@ -47,6 +48,7 @@ const generateOrder = async (req, res) => {
 
     await cartsService.updateCart(cart._id, { stickers: [] });
     await ticketsService.createTicket(ticket);
+
     const history = await historiesService.getHistoriesBy({ user: user._id });
     const event = {
         event: "Purchase",
@@ -69,13 +71,23 @@ const generateOrder = async (req, res) => {
         });
     }
 
-    //¡ TODO: MAILING TO THE USER !
+    let mailOrder = "";
+    for (const product of cart.stickers) {
+        mailOrder += `<div> <h2>${product._id.title}</h2> <h4>Price: $ ${product._id.price}</h4> <h4>Quantity: ${product.qty}</h4> </div>`;
+    }
 
-    res.json({
-        message: `Thank you for your buy, ${user.first_name}`,
-        products: cart.stickers,
-        total: total,
+    const result = await transporter.sendMail({
+        from: `The Sticker Hub <${config.mailer.GMAIL_USER}>`,
+        to: [config.mailer.GMAIL_USER, user.email],
+        subject: `NEW ORDER BY ${user.first_name} ${user.last_name}`,
+        html: `
+        <div>
+            <h2>ORDER: </h2>
+            ${mailOrder}
+        </div>
+        `,
     });
+    res.redirect("/buy");
 };
 
 export default {

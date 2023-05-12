@@ -10,4 +10,8 @@ export default {
         COOKIE: process.env.JWT_COOKIE,
         SECRET: process.env.JWT_SECRET,
     },
+    mailer: {
+        GMAIL_USER: process.env.GMAIL_USER,
+        GMAIL_PWD: process.env.GMAIL_PWD,
+    },
 };

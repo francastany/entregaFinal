@@ -2,6 +2,7 @@ import {
     cartsService,
     historiesService,
     stickersService,
+    usersService,
 } from "../DAO/index.js";
 
 const home = async (req, res) => {
@@ -41,6 +42,10 @@ const cart = async (req, res) => {
         TOTALPRICE,
     });
 };
+const buyPage = async (req, res) => {
+    const user = await usersService.getUserBy({ _id: req.user.id });
+    res.render("buy", { user });
+};
 
 export default {
     home,
@@ -49,4 +54,5 @@ export default {
     profile,
     creator,
     cart,
+    buyPage,
 };

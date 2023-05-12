@@ -1,12 +1,38 @@
-<section class="container mt-3">
-    <h1
-        class="w-100 border border-secondary text-center p-3 rounded shadow mb-4"
-    >Get your Stickers!</h1>
+<section class="container">
+
+    {{#if user}}
+        <div
+            class="w-100 shadow rounded d-flex justify-content-between align-items-center px-5 py-2 my-3"
+        >
+            <div class="d-flex align-items-center">
+                <img
+                    src={{user.avatar}}
+                    style="width: 50px;border-radius: 50%; margin-right: 1rem; border: 1px solid #7f7f7f"
+                    alt="User"
+                />
+                <h6 class="text-uppercase m-0">{{user.name}}</h6>
+            </div>
+            <div>
+                <a href="http://localhost:8080/cart/">
+                    <img
+                        src="https://res.cloudinary.com/francocastany/image/upload/v1683840222/REKITS/cart-shopping-solid_1_burxbn.svg"
+                        alt="cart"
+                        style="height: 20px;"
+                    />
+                </a>
+            </div>
+        </div>
+    {{/if}}
+
     {{#if stickers}}
         <div class="container d-flex justify-content-around flex-wrap">
             {{#each stickers}}
-                <div class="card mx-2 mb-4 shadow-sm" style="width: 18rem;">
-                    <img src={{this.image}} alt="Sticker" />
+                <div class="card mx-2 mb-4 shadow-sm" style="width: 15rem;">
+                    <img
+                        src={{this.image}}
+                        alt="Sticker"
+                        style="overflow: hidden;"
+                    />
                     <div class="card-header">
                         <h5 class="card-title m-0">{{this.title}}</h5>
                     </div>
@@ -17,8 +43,10 @@
                         <a
                             href="http://localhost:8080/api/carts/sticker/{{this._id}}"
                         >
-                            <button class="btn btn-light justify-self-center">
-                                ADD TO CART
+                            <button
+                                class="btn m-0 btn-outline-dark rounded-circle"
+                            >
+                                <span class="">+</span>
                             </button>
                         </a>
                     </div>
@@ -29,23 +57,3 @@
         <p class="alert alert-info" role="alert">There´s no products...</p>
     {{/if}}
 </section>
-
-{{#if user}}
-    <footer
-        class="bg-secondary w-100 p-4 d-flex justify-content-around align-items-center"
-    >
-        <div class="d-flex align-items-center">
-            <img
-                src={{user.avatar}}
-                style="width: 80px;border-radius: 50%; padding-right: .5rem"
-                alt="User"
-            />
-            <h5 class="text-white">Hey, {{user.name}}!</h5>
-        </div>
-        <div>
-            <a href="http://localhost:8080/cart/">
-                <button class="btn btn-outline-light shadow">SEE YOUR CART</button>
-            </a>
-        </div>
-    </footer>
-{{/if}}

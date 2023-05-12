@@ -14,5 +14,6 @@ router.get(
 );
 router.get("/creator", viewsController.creator);
 router.get("/cart", executePolicies(["user"]), viewsController.cart);
+router.get("/buy", executePolicies(["user"]), viewsController.buyPage);
 
 export default router;

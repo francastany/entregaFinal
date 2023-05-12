@@ -8,8 +8,8 @@ export default class CartsDAO {
                 .lean();
         return cartModel.findOne({ _id: id }).lean();
     };
-    createCart = () => {
-        return cartModel.create({ stickers: [] });
+    createCart = (userId) => {
+        return cartModel.create({ user: userId, stickers: [] });
     };
     updateCart = (id, cart) => {
         return cartModel.findByIdAndUpdate(id, { $set: cart });

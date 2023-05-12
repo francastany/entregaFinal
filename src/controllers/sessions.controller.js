@@ -24,18 +24,29 @@ const register = async (req, res) => {
                 message: "The user already exists",
             });
         const hashedPassword = await createHash(password);
-        const cart = await cartsService.createCart();
+        // const cart = await cartsService.createCart();
+        // console.log(cart, cart._id);
         const user = {
             first_name,
             last_name,
             email,
             password: hashedPassword,
-            cart: cart._id,
+            // cart: cart._id,
             avatar: `${req.protocol}://${req.hostname}:${process.env.PORT}/img/${file.filename}`,
         };
         const result = await usersService.createUser(user);
+
+        const userDB = await usersService.getUserBy({ email: user.email });
+        console.log(userDB._id);
+        const cart = await cartsService.createCart(userDB._id);
+        console.log(cart);
+
+        user.cart = cart._id;
+        await usersService.updateUser(userDB._id, user);
+
         res.send({ status: "success", message: "User registered" });
     } catch (error) {
+        console.log(error);
         res.status(500).send({ status: "error", error: "Server error" });
     }
 };

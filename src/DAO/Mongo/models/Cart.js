@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
+
 const collection = "Carts";
 const schema = new mongoose.Schema({
+    user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Users",
+    },
     stickers: [
         {
             _id: {
@@ -14,5 +19,6 @@ const schema = new mongoose.Schema({
         },
     ],
 });
+
 const cartModel = mongoose.model(collection, schema);
 export default cartModel;
