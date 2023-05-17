@@ -4,6 +4,7 @@ import {
     stickersService,
     usersService,
 } from "../DAO/index.js";
+import config from "../config/config.js";
 
 const home = async (req, res) => {
     const stickers = await stickersService.getStickers();
@@ -46,6 +47,10 @@ const buyPage = async (req, res) => {
     const user = await usersService.getUserBy({ _id: req.user.id });
     res.render("buy", { user });
 };
+const logout = (req, res) => {
+    res.clearCookie(config.jwt.COOKIE);
+    res.render("logout");
+};
 
 export default {
     home,
@@ -55,4 +60,5 @@ export default {
     creator,
     cart,
     buyPage,
+    logout,
 };

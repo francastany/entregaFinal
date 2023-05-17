@@ -2,8 +2,8 @@
     class="d-flex flex-column align-items-center justify-content-evenly my-5"
 >
 
-    <h2 class="mb-4">{{name}}'s Cart: </h2>
     {{#if stickers}}
+        <h2 class="mb-4">{{name}}'s Cart: </h2>
         <table class="table w-50 border shadow table-borderless table-hover">
             <thead>
                 <tr>
@@ -52,8 +52,13 @@
             </a>
         </div>
     {{else}}
-        <h1 class="mb-4">No stickers yet...</h1>
-        <a href="/" class="btn btn-primary">Start Buying</a>
+        <section
+            class="rounded mt-5 mx-auto p-4 d-flex flex-column align-items-center w-75 bg-light border shadow-lg"
+        >
+            <h1>Empty cart</h1>
+            <h4 class="my-5 display-6">No stickers yet...</h4>
+            <a href="/" class="px-2 btn btn-outline-info">Start Buying</a>
+        </section>
     {{/if}}
 
 </section>
