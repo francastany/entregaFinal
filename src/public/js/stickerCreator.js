@@ -1,3 +1,5 @@
+import { logger } from "../../services/logger";
+
 const form = document.getElementById("stickerForm");
 
 form.addEventListener("submit", async (evt) => {
@@ -8,5 +10,6 @@ form.addEventListener("submit", async (evt) => {
         body: data,
     });
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
+    logger.info(result);
 });

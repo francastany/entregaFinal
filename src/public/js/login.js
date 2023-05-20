@@ -1,3 +1,5 @@
+import { logger } from "../../services/logger";
+
 const form = document.getElementById("loginForm");
 
 form.addEventListener("submit", async (evt) => {
@@ -16,5 +18,6 @@ form.addEventListener("submit", async (evt) => {
     const result = await response.json();
     if (result.status === "success") window.location.replace("/");
     else alert(result.error);
-    console.log(result);
+    // console.log(result);
+    logger.info(result);
 });

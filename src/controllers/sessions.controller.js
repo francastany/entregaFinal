@@ -3,6 +3,7 @@ import config from "../config/config.js";
 import { cartsService, usersService } from "../DAO/index.js";
 import UserDTO from "../DAO/DTO/UserDTO.js";
 import { createHash } from "../services/auth.js";
+import { logger } from "../services/logger.js";
 
 const register = async (req, res) => {
     try {
@@ -24,7 +25,6 @@ const register = async (req, res) => {
                 message: "The user already exists",
             });
         const hashedPassword = await createHash(password);
-        // const cart = await cartsService.createCart();
         // console.log(cart, cart._id);
         const user = {
             first_name,
@@ -44,7 +44,8 @@ const register = async (req, res) => {
 
         res.send({ status: "success", message: "User registered" });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        logger.error(error);
         res.status(500).send({ status: "error", error: "Server error" });
     }
 };
@@ -60,11 +61,13 @@ const login = async (req, res) => {
             message: "Logged!",
         });
     } catch (error) {
+        logger.error(error);
         res.status(500).send({ status: "error", error: "Server error" });
     }
 };
 
 const loginFail = (req, res) => {
+    logger.error("The login has failed! Try again.");
     res.send("Something went wrong... =(");
 };
 
