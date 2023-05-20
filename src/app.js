@@ -8,6 +8,7 @@ import viewsRouter from "./routes/views.router.js";
 import sessionsRouter from "./routes/sessions.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import stickersRouter from "./routes/stickers.router.js";
+import keysRouter from "./routes/keys.router.js";
 
 import config from "./config/config.js";
 import initializeStrategies from "./config/passport.config.js";
@@ -36,5 +37,6 @@ app.use("/", viewsRouter);
 app.use("/api/sessions/", sessionsRouter);
 app.use("/api/carts/", cartsRouter);
 app.use("/api/stickers/", stickersRouter);
+app.use("/api/keys/", keysRouter);
 
 app.listen(PORT, () => console.log(`Listening on... http://localhost:${PORT}`));

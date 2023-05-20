@@ -79,7 +79,7 @@ const generateOrder = async (req, res) => {
     const result = await transporter.sendMail({
         from: `The Sticker Hub <${config.mailer.GMAIL_USER}>`,
         to: [config.mailer.GMAIL_USER, user.email],
-        subject: `NEW ORDER BY ${user.first_name} ${user.last_name}`,
+        subject: `ORDER BY ${user.first_name} ${user.last_name}`,
         html: `
         <div>
             <h2>ORDER: </h2>
