@@ -37,9 +37,7 @@ const register = async (req, res) => {
         const result = await usersService.createUser(user);
 
         const userDB = await usersService.getUserBy({ email: user.email });
-        console.log(userDB._id);
         const cart = await cartsService.createCart(userDB._id);
-        console.log(cart);
 
         user.cart = cart._id;
         await usersService.updateUser(userDB._id, user);

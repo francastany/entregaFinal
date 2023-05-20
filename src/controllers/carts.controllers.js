@@ -73,7 +73,7 @@ const generateOrder = async (req, res) => {
 
     let mailOrder = "";
     for (const product of cart.stickers) {
-        mailOrder += `<div> <h2>${product._id.title}</h2> <h4>Price: $ ${product._id.price}</h4> <h4>Quantity: ${product.qty}</h4> </div>`;
+        mailOrder += `<div> <h2>${product._id.title}</h2> <h4>Price: $ ${product._id.price}</h4> <h4>Quantity: ${product.qty}</h4> </div> </h3>`;
     }
 
     const result = await transporter.sendMail({
@@ -83,7 +83,13 @@ const generateOrder = async (req, res) => {
         html: `
         <div>
             <h2>ORDER: </h2>
-            ${mailOrder}
+            <h4>Code: <span  style="color: #999999">${ticket.code}</span></h4>
+            <br>
+            <div>
+                ${mailOrder}
+            </div>
+            <br>
+            <h2>TOTAL PRICE: $${total}</h2>
         </div>
         `,
     });
